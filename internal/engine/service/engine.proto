@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package aegis.engine.service;
+
+option go_package = "service";
+
+message ReloadRequest {
+}
+
+message ReloadResponse {
+    int64 code = 1;
+    string error_reason = 2;
+}
+
+service Engine {
+    rpc Reload (ReloadRequest) returns (ReloadResponse);
+}

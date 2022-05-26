@@ -1,0 +1,8 @@
+run:
+  deadline: 2m
+  skip-files:
+    - migrations/metadata/bindata.go
+    - migrations/warehouse/bindata.go
+linters:
+  disable:
+    - errcheck

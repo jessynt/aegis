@@ -1,0 +1,48 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "aegis.fullname" . }}-init-migrations
+  labels:
+    component: migrations
+{{ include "aegis.labels" . | indent 4 }}
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-delete-policy: hook-succeeded
+spec:
+  activeDeadlineSeconds: 60
+  template:
+    metadata:
+      name: {{ template "aegis.name" . }}-migrations
+      labels:
+        app.kubernetes.io/name: {{ include "aegis.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        component: migrations
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ template "aegis.name" . }}-migrations
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /usr/local/bin/aegis-tools
+            - migration:metadata
+            - up
+          env:
+            - name: TZ
+              value: Asia/Singapore
+          volumeMounts:
+            - name: config
+              mountPath: aegis.yaml
+              subPath: config.yaml
+      restartPolicy: OnFailure
+      volumes:
+      - name: config
+        secret:
+          defaultMode: 420
+          items:
+            - key: config.yaml
+              path: config.yaml
+          secretName: {{ .Values.existingSecret }}

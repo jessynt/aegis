@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package aegis.proto;
+
+option go_package = "internal/proto";
+
+enum PropertyType {
+    PropertyTypeUnknown = 0;
+    PropertyTypeInteger = 1;
+    PropertyTypeDouble = 2;
+    PropertyTypeString = 3;
+    PropertyTypeBool = 4;
+    PropertyTypeDate = 5;
+    PropertyTypeDateTime = 6;
+}
+
+enum AggregateType {
+    AggregateTypeUnknown = 0;
+    AggregateTypeCount = 1;
+    AggregateTypeDistinctCount = 2;
+    AggregateTypeAverage = 3;
+    AggregateTypeSum = 4;
+    AggregateTypeMin = 5;
+    AggregateTypeMax = 6;
+    AggregateTypeSD = 7; // 标准差
+    AggregateTypeVariance = 8; // 方差
+    AggregateTypeDeviation = 9; // 偏离率
+    AggregateTypeMedian = 10; // 中位数
+}
+
+enum AggregateIntervalType {
+    AggregateIntervalTypeUnknown = 0;
+    AggregateIntervalTypeYear = 1;
+    AggregateIntervalTypeMonth = 2;
+    AggregateIntervalTypeDay = 3;
+    AggregateIntervalTypeHour = 4;
+    AggregateIntervalTypeMinute = 5;
+    AggregateIntervalTypeSecond = 6;
+}
+
+enum OperatorType {
+    OperatorTypeUnknown = 0;
+    OperatorTypeAdd = 1;
+    OperatorTypeSub = 2;
+    OperatorTypeMul = 3;
+    OperatorTypeDiv = 4;
+}
+
+enum ValidateType {
+    ValidateTypeUnknown = 0;
+    ValidateTypeNumber = 1;
+    ValidateTypeString = 2;
+    ValidateTypeBool = 3;
+    ValidateTypeRegex = 4;
+    ValidateTypeDatetime = 5;
+}
+
+enum RiskType {
+    RiskUnknown = 0;
+    RiskPass = 1;
+    RiskWarning = 2;
+    RiskDeny = 3;
+}
+
+enum CollectionType {
+    CollectionTypeUnknown = 0;
+    CollectionTypeBlackList = 1;
+    CollectionTypeWhiteList = 2;
+}
+
+message RiskObject {
+    RiskType rick_type = 1;
+    double score = 2;
+}

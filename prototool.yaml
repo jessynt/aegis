@@ -1,0 +1,10 @@
+protoc:
+  version: 3.7.1
+generate:
+  go_options:
+    import_path: aegis
+  plugins:
+    - name: gogoslick
+      type: gogo
+      flags: plugins=grpc
+      output: ./

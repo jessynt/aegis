@@ -1,0 +1,20 @@
+existingSecret: "aegis-config"
+image:
+  repository: aegis
+  tag: latest
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+engine:
+  name: engine
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 3210
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}

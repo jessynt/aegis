@@ -1,0 +1,32 @@
+# idea ignore
+.idea/
+*.ipr
+*.iml
+*.iws
+
+biligo/
+.vscode/
+
+*.swp
+
+/bazel-*
+*.pyc
+
+# system ignore
+._*
+.DS_Store
+Thumbs.db
+
+# make-related metadata
+/.make/
+
+# dev tools
+/dev/volumes/*
+
+config/aegis.yaml
+aegis-test.yaml
+bin/
+/test/tests.*
+/test/coverage.*
+
+.circleci/

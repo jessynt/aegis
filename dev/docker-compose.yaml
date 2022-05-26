@@ -1,0 +1,32 @@
+version: "3"
+services:
+  mysql:
+    image: "mysql:5.7"
+    environment:
+      - MYSQL_DATABASE=aegis
+      - MYSQL_USER=aegis
+      - MYSQL_PASSWORD=aegis
+      - MYSQL_ROOT_PASSWORD=aegis
+    networks:
+      - aegis
+    ports:
+      - "13306:3306"
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
+  clickhouse-server:
+    image: "yandex/clickhouse-server:19.15"
+    volumes:
+      - ./volumes/clickhouse:/var/lib/clickhouse
+      - ./clickhouse/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - aegis
+    ports:
+      - "18123:8123"
+      - "19000:9000"
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+networks:
+  aegis:
+    driver: bridge
